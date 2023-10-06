@@ -5,9 +5,10 @@
  * @format
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import type {PropsWithChildren} from 'react';
 import {
+  NativeModules,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -57,7 +58,14 @@ function Section({children, title}: SectionProps): JSX.Element {
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
+  const { CustomerGluInternal } = NativeModules
 
+  useEffect(() => {
+    setTimeout(() => {
+      CustomerGluInternal.showPIP()
+    }, 1000)
+  }, [])
+  
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
